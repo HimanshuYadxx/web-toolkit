@@ -5,6 +5,8 @@ import ToolCard from "./ToolCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 interface ToolGridProps {
   searchQuery?: string;
@@ -16,6 +18,7 @@ const ToolGrid = ({ searchQuery = "", initialCategory = "all" }: ToolGridProps) 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [filteredTools, setFilteredTools] = useState(toolsData);
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Set active category from props
@@ -53,6 +56,15 @@ const ToolGrid = ({ searchQuery = "", initialCategory = "all" }: ToolGridProps) 
 
     return () => clearTimeout(timer);
   }, [activeCategory, searchQuery]);
+
+  // Function to quickly use a tool
+  const quickUseTool = (toolId: string) => {
+    navigate(`/tool/${toolId}`);
+    toast({
+      title: "Opening tool",
+      description: "Preparing the tool for you...",
+    });
+  };
 
   // Show the first 4 categories on mobile, all on desktop
   const visibleCategories = showAllCategories ? categories : categories.slice(0, 4);
@@ -124,6 +136,7 @@ const ToolGrid = ({ searchQuery = "", initialCategory = "all" }: ToolGridProps) 
               name={tool.name}
               description={tool.description}
               icon={tool.icon}
+              onQuickUse={() => quickUseTool(tool.id)}
             />
           ))
         ) : (

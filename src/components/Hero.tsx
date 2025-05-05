@@ -1,5 +1,4 @@
 
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -19,12 +18,6 @@ const Hero = () => {
         <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
           Simple, free online tools to help with all your PDF conversions, compressions, and more. No registration, no downloads, just fast and easy solutions.
         </p>
-
-        <Button asChild className="animate-fade-in" style={{ animationDelay: "450ms" }}>
-          <Link to="/#tools" className="flex items-center gap-2">
-            Explore Tools <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Button>
 
         {/* Decorative elements */}
         <div className="hidden md:block absolute -right-16 top-20 w-32 h-32 bg-primary/20 rounded-full animate-float" style={{ animationDelay: "0s" }}></div>

@@ -24,10 +24,12 @@ const Index = () => {
     if (location.hash) {
       const element = document.getElementById(location.hash.substring(1));
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
       }
     }
-  }, [location]);
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen flex flex-col">
