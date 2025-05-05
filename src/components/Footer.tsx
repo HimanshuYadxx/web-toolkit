@@ -1,5 +1,4 @@
-
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Instagram, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -17,16 +16,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
-              </a>
-              <a 
-                href="https://twitter.com" 
+                href="https://x.com/HimanshuYadxx" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -35,7 +25,7 @@ const Footer = () => {
                 <Twitter size={20} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/himanshuyadxx?igsh=MWV6MGY5MmlxMWlmYQ==" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -44,7 +34,7 @@ const Footer = () => {
                 <Instagram size={20} />
               </a>
               <a 
-                href="https://youtube.com" 
+                href="https://youtube.com/@moviesamajho?si=g5m0aGtRDGmm6fa0" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -54,7 +44,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          
+
           {/* Column 2 */}
           <div>
             <h3 className="font-semibold mb-4">Tools</h3>
@@ -65,7 +55,7 @@ const Footer = () => {
               <li><Link to="/?category=Convert" className="text-muted-foreground hover:text-primary transition-colors">File Converters</Link></li>
             </ul>
           </div>
-          
+
           {/* Column 3 */}
           <div>
             <h3 className="font-semibold mb-4">Company</h3>
@@ -75,7 +65,7 @@ const Footer = () => {
               <li><Link to="/faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
             </ul>
           </div>
-          
+
           {/* Column 4 */}
           <div>
             <h3 className="font-semibold mb-4">Support</h3>
@@ -87,7 +77,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-border/60 mt-8 pt-8 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} PDFixit. All rights reserved.</p>
         </div>
