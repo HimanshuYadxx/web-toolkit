@@ -10,7 +10,7 @@ const Hero = () => {
           100% Free Online Tools
         </span>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in" style={{ animationDelay: "150ms" }}>
-          Make <span className="text-primary">PDF</span> Solutions <span className="text-primary">Simple</span>!
+          Make <span className="text-black">PDFixit</span> Solutions <span className="text-primary">Simple</span>!
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
           Simple, free online tools to help with all your PDF conversions, compressions, and more. No registration, no downloads, just fast and easy solutions.

@@ -10,8 +10,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-6">
               <Link to="/" className="flex items-center">
-                <span className="text-2xl font-bold text-primary">PDF</span>
-                <span className="text-2xl font-bold">ixit</span>
+                <span className="text-2xl font-bold text-black">PDFixit</span>
               </Link>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
@@ -57,7 +56,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><Link to="/about" className="text-muted-foreground hover:text-primary">About Us</Link></li>
               <li><Link to="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
-              <li><a href="https://blog.pdfixit.example.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">Blog</a></li>
+              <li><Link to="/blog" className="text-muted-foreground hover:text-primary">Blog</Link></li>
             </ul>
           </div>
           
@@ -66,8 +65,8 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><Link to="/terms" className="text-muted-foreground hover:text-primary">Terms of Service</Link></li>
               <li><Link to="/privacy" className="text-muted-foreground hover:text-primary">Privacy Policy</Link></li>
-              <li><Link to="/privacy" className="text-muted-foreground hover:text-primary">Cookie Policy</Link></li>
-              <li><Link to="/privacy#security" className="text-muted-foreground hover:text-primary">Security</Link></li>
+              <li><Link to="/cookie-policy" className="text-muted-foreground hover:text-primary">Cookie Policy</Link></li>
+              <li><Link to="/security" className="text-muted-foreground hover:text-primary">Security</Link></li>
             </ul>
           </div>
         </div>
@@ -77,15 +76,15 @@ const Footer = () => {
             © 2025 PDFixit. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary">
+            <Link to="/help" className="text-sm text-muted-foreground hover:text-primary">
               Help Center
             </Link>
-            <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary">
+            <Link to="/support" className="text-sm text-muted-foreground hover:text-primary">
               Support
             </Link>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+            <Link to="/faq" className="text-sm text-muted-foreground hover:text-primary">
               FAQ
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-
 import { Search } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,8 +23,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary">PDF</span>
-            <span className="text-2xl font-bold">ixit</span>
+            <span className="text-2xl font-bold text-black">PDFixit</span>
           </Link>
 
           <nav className="hidden md:flex ml-8">
