@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ToolGrid from "@/components/ToolGrid";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import AdBanner from "@/components/AdBanner";
 
 const Index = () => {
   return (
@@ -14,16 +14,18 @@ const Index = () => {
         <Hero />
         <ToolGrid />
         
+        <AdBanner slot="3854433005" className="container my-8" />
+        
         {/* Features section */}
         <section className="bg-secondary/30 py-16">
           <div className="container">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              Why Choose <span className="text-primary">TinyWow</span>?
+              Why Choose <span className="text-primary">PDFixit</span>?
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Feature 1 */}
-              <div className="bg-background p-6 rounded-lg text-center">
+              <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg text-center">
                 <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -35,7 +37,7 @@ const Index = () => {
               </div>
               
               {/* Feature 2 */}
-              <div className="bg-background p-6 rounded-lg text-center">
+              <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg text-center">
                 <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -46,7 +48,7 @@ const Index = () => {
               </div>
               
               {/* Feature 3 */}
-              <div className="bg-background p-6 rounded-lg text-center">
+              <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg text-center">
                 <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -58,7 +60,7 @@ const Index = () => {
               </div>
               
               {/* Feature 4 */}
-              <div className="bg-background p-6 rounded-lg text-center">
+              <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg text-center">
                 <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -75,13 +77,12 @@ const Index = () => {
         {/* CTA section */}
         <section className="py-16">
           <div className="container">
-            <div className="bg-primary/10 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+            <div className="bg-primary/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
               <div className="relative z-10">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to transform your files?</h2>
                 <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Start using our free tools today and discover how easy it is to manage your PDF, image, and video files online!
                 </p>
-                <Button size="lg" className="rounded-full">Get Started Now</Button>
               </div>
               
               {/* Background decoration */}

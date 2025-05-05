@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { File, FileText, Film, Image, Images, Maximize, Scissors, Video } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface ToolCardProps {
   name: string;
@@ -51,7 +52,7 @@ const ToolCard = ({ name, description, icon, id }: ToolCardProps) => {
 
   return (
     <Card 
-      className={`tool-card overflow-hidden border border-border/60 transition-all duration-300 ${
+      className={`tool-card overflow-hidden border border-border/60 bg-background/80 backdrop-blur-sm transition-all duration-300 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
@@ -67,8 +68,11 @@ const ToolCard = ({ name, description, icon, id }: ToolCardProps) => {
           variant="secondary" 
           size="sm" 
           className="w-full font-medium transition-all duration-200 hover:bg-primary hover:text-white"
+          asChild
         >
-          Use Tool
+          <Link to={`/tool/${id}`}>
+            Use Tool
+          </Link>
         </Button>
       </CardFooter>
     </Card>

@@ -91,7 +91,17 @@
 
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(
+      rgba(148, 110, 241, 0.05) 1px, 
+      transparent 1px
+    );
+    background-size: 50px 50px;
   }
+}
+
+/* Glass Morphism */
+.glass {
+  @apply bg-background/70 backdrop-blur-md border border-white/20 shadow-lg;
 }
 
 /* Tool Card Animation */
