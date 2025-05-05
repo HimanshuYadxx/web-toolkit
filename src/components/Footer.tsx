@@ -1,6 +1,6 @@
-
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 const Footer = () => {
   return (
@@ -9,10 +9,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1 */}
           <div>
-            <Link to="/" className="inline-flex items-center mb-4">
-              <span className="text-xl font-bold text-black">PDFixit</span>
-            </Link>
-            <p className="text-sm text-muted-foreground mb-4">
+            <Logo />
+            <p className="text-sm text-muted-foreground mb-4 mt-3">
               Free online tools for all your file conversion and editing needs. Simple, fast, and secure.
             </p>
             <div className="flex space-x-4">

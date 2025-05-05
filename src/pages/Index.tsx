@@ -19,6 +19,16 @@ const Index = () => {
     window.scrollTo(0, 0);
   }, [searchQuery, category]);
 
+  // Handle hash navigation
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>

@@ -58,7 +58,7 @@ const ToolGrid = ({ searchQuery = "", initialCategory = "all" }: ToolGridProps) 
   const visibleCategories = showAllCategories ? categories : categories.slice(0, 4);
 
   return (
-    <div className="container py-16">
+    <div id="tools" className="container py-16">
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
         {searchQuery ? `Search results for "${searchQuery}"` : 
           activeCategory !== "all" ? `${activeCategory} Tools` :
