@@ -30,6 +30,27 @@ export const toolsData: Tool[] = [
     category: "PDF"
   },
   {
+    id: "pdf-protect",
+    name: "Protect PDF",
+    description: "Add password protection to your PDF files",
+    icon: "shield",
+    category: "PDF"
+  },
+  {
+    id: "pdf-unlock",
+    name: "Unlock PDF",
+    description: "Remove password protection from PDF files",
+    icon: "unlock",
+    category: "PDF"
+  },
+  {
+    id: "pdf-organize",
+    name: "Organize PDF",
+    description: "Rearrange pages in your PDF documents",
+    icon: "layers",
+    category: "PDF"
+  },
+  {
     id: "image-compress",
     name: "Compress Image",
     description: "Reduce image size without losing quality",
@@ -51,6 +72,27 @@ export const toolsData: Tool[] = [
     category: "Image"
   },
   {
+    id: "image-crop",
+    name: "Crop Image",
+    description: "Cut out unwanted parts of your images",
+    icon: "scissors",
+    category: "Image"
+  },
+  {
+    id: "image-rotate",
+    name: "Rotate Image",
+    description: "Rotate or flip your images as needed",
+    icon: "compass",
+    category: "Image"
+  },
+  {
+    id: "image-watermark",
+    name: "Add Watermark",
+    description: "Protect your images with text or logo watermarks",
+    icon: "shield",
+    category: "Image"
+  },
+  {
     id: "video-compress",
     name: "Compress Video",
     description: "Make your videos smaller without quality loss",
@@ -62,6 +104,27 @@ export const toolsData: Tool[] = [
     name: "Convert Video",
     description: "Change video formats (MP4, AVI, MOV)",
     icon: "film",
+    category: "Video"
+  },
+  {
+    id: "video-trim",
+    name: "Trim Video",
+    description: "Cut unwanted parts from your videos",
+    icon: "scissors",
+    category: "Video"
+  },
+  {
+    id: "video-merge",
+    name: "Merge Video",
+    description: "Combine multiple video clips into one",
+    icon: "layers",
+    category: "Video"
+  },
+  {
+    id: "video-rotate",
+    name: "Rotate Video",
+    description: "Change the orientation of your videos",
+    icon: "compass",
     category: "Video"
   },
   {
@@ -90,6 +153,34 @@ export const toolsData: Tool[] = [
     name: "JPG to PDF",
     description: "Turn your images into PDF documents",
     icon: "file",
+    category: "Convert"
+  },
+  {
+    id: "excel-to-pdf",
+    name: "Excel to PDF",
+    description: "Convert Excel spreadsheets to PDF files",
+    icon: "file-text",
+    category: "Convert"
+  },
+  {
+    id: "pdf-to-excel",
+    name: "PDF to Excel",
+    description: "Convert PDF tables to Excel spreadsheets",
+    icon: "file-text",
+    category: "Convert"
+  },
+  {
+    id: "powerpoint-to-pdf",
+    name: "PowerPoint to PDF",
+    description: "Convert presentations to PDF format",
+    icon: "file-text",
+    category: "Convert"
+  },
+  {
+    id: "html-to-pdf",
+    name: "HTML to PDF",
+    description: "Convert web pages to PDF documents",
+    icon: "file-text",
     category: "Convert"
   }
 ];

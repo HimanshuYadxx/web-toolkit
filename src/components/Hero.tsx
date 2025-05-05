@@ -15,7 +15,7 @@ const Hero = () => {
           Make <span className="text-black">PDFixit</span> Solutions <span className="text-primary">Simple</span>!
         </h1>
         <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
-          Simple, free online tools to help with all your PDF conversions, compressions, and more. No registration, no downloads, just fast and easy solutions.
+          Simple, free online tools to help with all your PDF, image, video, and document conversions. No registration, no downloads, no file size limits.
         </p>
 
         {/* Decorative elements */}

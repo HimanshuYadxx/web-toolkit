@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { File, FileText, Film, Image, Images, Maximize, Scissors, Video } from "lucide-react";
+import { File, FileText, Film, Image, Images, Maximize, Scissors, Video, Shield, Unlock, Layers, Compass } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -45,6 +45,14 @@ const ToolCard = ({ name, description, icon, id }: ToolCardProps) => {
         return <Film className="h-8 w-8 text-primary" />;
       case "file-text":
         return <FileText className="h-8 w-8 text-primary" />;
+      case "shield":
+        return <Shield className="h-8 w-8 text-primary" />;
+      case "unlock":
+        return <Unlock className="h-8 w-8 text-primary" />;
+      case "layers":
+        return <Layers className="h-8 w-8 text-primary" />;
+      case "compass":
+        return <Compass className="h-8 w-8 text-primary" />;
       default:
         return <File className="h-8 w-8 text-primary" />;
     }

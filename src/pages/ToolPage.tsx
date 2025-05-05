@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { toolsData } from "@/data/toolsData";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, File, FileText, Film, Image, Images, Maximize, Scissors, Video } from "lucide-react";
+import { ArrowLeft, File, FileText, Film, Image, Images, Maximize, Scissors, Video, Shield, Unlock, Layers, Compass } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AdBanner from "@/components/AdBanner";
@@ -61,6 +61,14 @@ const ToolPage = () => {
         return <Film className="h-12 w-12 text-primary" />;
       case "file-text":
         return <FileText className="h-12 w-12 text-primary" />;
+      case "shield":
+        return <Shield className="h-12 w-12 text-primary" />;
+      case "unlock":
+        return <Unlock className="h-12 w-12 text-primary" />;
+      case "layers":
+        return <Layers className="h-12 w-12 text-primary" />;
+      case "compass":
+        return <Compass className="h-12 w-12 text-primary" />;
       default:
         return <File className="h-12 w-12 text-primary" />;
     }
@@ -97,11 +105,11 @@ const ToolPage = () => {
       
       if (tool) {
         if (tool.category === "PDF") {
-          successMessage = `PDF successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("merge") ? "merged" : tool.id.includes("split") ? "split" : "processed"}!`;
+          successMessage = `PDF successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("merge") ? "merged" : tool.id.includes("split") ? "split" : tool.id.includes("protect") ? "protected" : tool.id.includes("unlock") ? "unlocked" : tool.id.includes("organize") ? "organized" : "processed"}!`;
         } else if (tool.category === "Image") {
-          successMessage = `Image successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("resize") ? "resized" : "processed"}!`;
+          successMessage = `Image successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("resize") ? "resized" : tool.id.includes("crop") ? "cropped" : tool.id.includes("rotate") ? "rotated" : tool.id.includes("watermark") ? "watermarked" : "processed"}!`;
         } else if (tool.category === "Video") {
-          successMessage = `Video successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : "processed"}!`;
+          successMessage = `Video successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("trim") ? "trimmed" : tool.id.includes("merge") ? "merged" : tool.id.includes("rotate") ? "rotated" : "processed"}!`;
         } else if (tool.category === "Convert") {
           successMessage = `File successfully converted!`;
         }
@@ -211,7 +219,7 @@ const ToolPage = () => {
                   >
                     <File className="h-12 w-12 text-muted-foreground mb-4" />
                     <p className="text-lg font-medium mb-1">Drop your file here or click to browse</p>
-                    <p className="text-sm text-muted-foreground">Maximum file size: 100MB</p>
+                    <p className="text-sm text-muted-foreground">Upload any file size</p>
                   </label>
                 </div>
                 
