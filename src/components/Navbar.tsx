@@ -39,11 +39,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navigateToCategory = (category: string) => {
-    navigate(`/?category=${category}`);
-    if (isMenuOpen) setIsMenuOpen(false);
-  };
-
   return (
     <header 
       className={`sticky top-0 z-50 transition-all duration-200 ${
@@ -62,7 +57,6 @@ const Navbar = () => {
               <li><Link to="/?category=PDF" className="text-sm font-medium text-foreground hover:text-primary transition-colors">PDF</Link></li>
               <li><Link to="/?category=Image" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Image</Link></li>
               <li><Link to="/?category=Video" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Video</Link></li>
-              <li><Link to="/?category=Convert" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Convert</Link></li>
               <li><Link to="/blog" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Blog</Link></li>
             </ul>
           </nav>
@@ -97,10 +91,9 @@ const Navbar = () => {
             <nav>
               <ul className="space-y-4">
                 <li><Link to="/" className="block text-lg font-medium text-foreground hover:text-primary">All Tools</Link></li>
-                <li><button onClick={() => navigateToCategory('PDF')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">PDF Tools</button></li>
-                <li><button onClick={() => navigateToCategory('Image')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">Image Tools</button></li>
-                <li><button onClick={() => navigateToCategory('Video')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">Video Tools</button></li>
-                <li><button onClick={() => navigateToCategory('Convert')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">File Converters</button></li>
+                <li><Link to="/?category=PDF" className="block text-lg font-medium text-foreground hover:text-primary">PDF</Link></li>
+                <li><Link to="/?category=Image" className="block text-lg font-medium text-foreground hover:text-primary">Image</Link></li>
+                <li><Link to="/?category=Video" className="block text-lg font-medium text-foreground hover:text-primary">Video</Link></li>
                 <li><Link to="/blog" className="block text-lg font-medium text-foreground hover:text-primary">Blog</Link></li>
               </ul>
 
@@ -111,7 +104,6 @@ const Navbar = () => {
                 <li><Link to="/contact" className="block text-base text-muted-foreground hover:text-primary">Contact</Link></li>
                 <li><Link to="/faq" className="block text-base text-muted-foreground hover:text-primary">FAQ</Link></li>
                 <li><Link to="/help" className="block text-base text-muted-foreground hover:text-primary">Help Center</Link></li>
-                <li><Link to="/support" className="block text-base text-muted-foreground hover:text-primary">Support</Link></li>
               </ul>
             </nav>
 

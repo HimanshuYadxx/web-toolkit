@@ -1,96 +1,91 @@
 
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary/50">
-      <div className="container px-4 py-12">
+    <footer className="bg-secondary/30">
+      <div className="container py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Column 1 */}
           <div>
-            <Link to="/" className="inline-flex items-center mb-4">
-              <span className="text-xl font-bold text-black">PDFixit</span>
-            </Link>
+            <div className="flex items-center gap-2 mb-6">
+              <Link to="/" className="flex items-center">
+                <span className="text-2xl font-bold text-black">PDFixit</span>
+              </Link>
+            </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Free online tools for all your file conversion and editing needs. Simple, fast, and secure.
+              Simple online tools to make everyday tasks easier. Free, fast, and no registration required.
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
-              </a>
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram size={20} />
-              </a>
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Youtube"
-              >
-                <Youtube size={20} />
-              </a>
+            <div className="flex gap-4">
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+                <span className="sr-only">Facebook</span>
+              </Button>
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span className="sr-only">Instagram</span>
+              </Button>
+              <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 4S21 4 12 4 2 4 2 4l7 8-7 8s1 0 10 0 10 0 10 0l-7-8 7-8z"></path>
+                </svg>
+                <span className="sr-only">Twitter</span>
+              </Button>
             </div>
           </div>
           
-          {/* Column 2 */}
           <div>
-            <h3 className="font-semibold mb-4">Tools</h3>
+            <h3 className="font-medium mb-4">Tools</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/?category=PDF" className="text-muted-foreground hover:text-primary transition-colors">PDF Tools</Link></li>
-              <li><Link to="/?category=Image" className="text-muted-foreground hover:text-primary transition-colors">Image Tools</Link></li>
-              <li><Link to="/?category=Video" className="text-muted-foreground hover:text-primary transition-colors">Video Tools</Link></li>
-              <li><Link to="/?category=Convert" className="text-muted-foreground hover:text-primary transition-colors">File Converters</Link></li>
+              <li><Link to="/tool/pdf-compress" className="text-muted-foreground hover:text-primary">PDF Tools</Link></li>
+              <li><Link to="/tool/image-compress" className="text-muted-foreground hover:text-primary">Image Tools</Link></li>
+              <li><Link to="/tool/video-compress" className="text-muted-foreground hover:text-primary">Video Tools</Link></li>
+              <li><Link to="/tool/word-to-pdf" className="text-muted-foreground hover:text-primary">File Converters</Link></li>
+              <li><Link to="/" className="text-muted-foreground hover:text-primary">All Tools</Link></li>
             </ul>
           </div>
           
-          {/* Column 3 */}
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-medium mb-4">Company</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
-              <li><Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
-              <li><Link to="/faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-primary">About Us</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
+              <li><Link to="/blog" className="text-muted-foreground hover:text-primary">Blog</Link></li>
             </ul>
           </div>
           
-          {/* Column 4 */}
           <div>
-            <h3 className="font-semibold mb-4">Support</h3>
+            <h3 className="font-medium mb-4">Legal</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/help" className="text-muted-foreground hover:text-primary transition-colors">Help Center</Link></li>
-              <li><Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
-              <li><Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/cookie-policy" className="text-muted-foreground hover:text-primary transition-colors">Cookie Policy</Link></li>
+              <li><Link to="/terms" className="text-muted-foreground hover:text-primary">Terms of Service</Link></li>
+              <li><Link to="/privacy" className="text-muted-foreground hover:text-primary">Privacy Policy</Link></li>
+              <li><Link to="/cookie-policy" className="text-muted-foreground hover:text-primary">Cookie Policy</Link></li>
+              <li><Link to="/security" className="text-muted-foreground hover:text-primary">Security</Link></li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-border/60 mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} PDFixit. All rights reserved.</p>
+
+        <div className="border-t border-border/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-muted-foreground mb-4 md:mb-0">
+            © 2025 PDFixit. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            <Link to="/help" className="text-sm text-muted-foreground hover:text-primary">
+              Help Center
+            </Link>
+            <Link to="/support" className="text-sm text-muted-foreground hover:text-primary">
+              Support
+            </Link>
+            <Link to="/faq" className="text-sm text-muted-foreground hover:text-primary">
+              FAQ
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
