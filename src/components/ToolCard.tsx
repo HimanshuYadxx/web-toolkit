@@ -1,7 +1,28 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { File, FileText, Film, Image, Images, Maximize, Scissors, Video, Shield, Unlock, Layers, Compass } from "lucide-react";
+import { 
+  Book, 
+  Compass, 
+  Eraser, 
+  FastForward, 
+  File, 
+  FileText, 
+  Film, 
+  Hand, 
+  Image, 
+  Images, 
+  Layers, 
+  Layout,
+  Maximize, 
+  MessageSquare, 
+  Music,
+  Scissors, 
+  Search, 
+  Shield, 
+  Unlock, 
+  Video 
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -53,6 +74,22 @@ const ToolCard = ({ name, description, icon, id }: ToolCardProps) => {
         return <Layers className="h-8 w-8 text-primary" />;
       case "compass":
         return <Compass className="h-8 w-8 text-primary" />;
+      case "search":
+        return <Search className="h-8 w-8 text-primary" />;
+      case "eraser":
+        return <Eraser className="h-8 w-8 text-primary" />;
+      case "layout":
+        return <Layout className="h-8 w-8 text-primary" />;
+      case "hand":
+        return <Hand className="h-8 w-8 text-primary" />;
+      case "fast-forward":
+        return <FastForward className="h-8 w-8 text-primary" />;
+      case "message-square":
+        return <MessageSquare className="h-8 w-8 text-primary" />;
+      case "music":
+        return <Music className="h-8 w-8 text-primary" />;
+      case "book":
+        return <Book className="h-8 w-8 text-primary" />;
       default:
         return <File className="h-8 w-8 text-primary" />;
     }

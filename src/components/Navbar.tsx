@@ -63,7 +63,6 @@ const Navbar = () => {
               <li><Link to="/?category=Image" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Image</Link></li>
               <li><Link to="/?category=Video" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Video</Link></li>
               <li><Link to="/?category=Convert" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Convert</Link></li>
-              <li><Link to="/blog" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Blog</Link></li>
             </ul>
           </nav>
         </div>
@@ -101,7 +100,6 @@ const Navbar = () => {
                 <li><button onClick={() => navigateToCategory('Image')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">Image Tools</button></li>
                 <li><button onClick={() => navigateToCategory('Video')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">Video Tools</button></li>
                 <li><button onClick={() => navigateToCategory('Convert')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">File Converters</button></li>
-                <li><Link to="/blog" className="block text-lg font-medium text-foreground hover:text-primary">Blog</Link></li>
               </ul>
 
               <div className="h-px bg-border my-6"></div>

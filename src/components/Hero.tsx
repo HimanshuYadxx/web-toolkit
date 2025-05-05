@@ -14,8 +14,9 @@ const Hero = () => {
         <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in" style={{ animationDelay: "150ms" }}>
           Make <span className="text-black">PDFixit</span> Solutions <span className="text-primary">Simple</span>!
         </h1>
-        <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
-          Simple, free online tools to help with all your PDF, image, video, and document conversions. No registration, no downloads, no file size limits.
+        <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
+          Simple, free online tools to help with all your PDF, image, video, and document conversions. 
+          Over 40 powerful tools with no registration, no downloads, no file size limits.
         </p>
 
         {/* Decorative elements */}

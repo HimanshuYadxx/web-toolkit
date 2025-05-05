@@ -8,6 +8,7 @@ interface Tool {
 }
 
 export const toolsData: Tool[] = [
+  // PDF Tools
   {
     id: "pdf-compress",
     name: "Compress PDF",
@@ -51,6 +52,29 @@ export const toolsData: Tool[] = [
     category: "PDF"
   },
   {
+    id: "pdf-rotate",
+    name: "Rotate PDF",
+    description: "Change the orientation of PDF pages",
+    icon: "compass",
+    category: "PDF"
+  },
+  {
+    id: "pdf-annotate",
+    name: "Annotate PDF",
+    description: "Add comments, highlights and text to PDFs",
+    icon: "file-text",
+    category: "PDF"
+  },
+  {
+    id: "pdf-ocr",
+    name: "PDF OCR",
+    description: "Convert scanned PDFs to searchable text",
+    icon: "search",
+    category: "PDF"
+  },
+
+  // Image Tools
+  {
     id: "image-compress",
     name: "Compress Image",
     description: "Reduce image size without losing quality",
@@ -93,6 +117,29 @@ export const toolsData: Tool[] = [
     category: "Image"
   },
   {
+    id: "image-filter",
+    name: "Image Filters",
+    description: "Apply effects and filters to enhance images",
+    icon: "layers",
+    category: "Image"
+  },
+  {
+    id: "image-background",
+    name: "Remove Background",
+    description: "Automatically remove image backgrounds",
+    icon: "eraser",
+    category: "Image"
+  },
+  {
+    id: "image-collage",
+    name: "Create Collage",
+    description: "Combine multiple images into one collage",
+    icon: "layout",
+    category: "Image"
+  },
+
+  // Video Tools
+  {
     id: "video-compress",
     name: "Compress Video",
     description: "Make your videos smaller without quality loss",
@@ -127,6 +174,36 @@ export const toolsData: Tool[] = [
     icon: "compass",
     category: "Video"
   },
+  {
+    id: "video-watermark",
+    name: "Add Watermark",
+    description: "Add text or logo watermarks to videos",
+    icon: "shield",
+    category: "Video"
+  },
+  {
+    id: "video-stabilize",
+    name: "Stabilize Video",
+    description: "Reduce shakiness in handheld videos",
+    icon: "hand",
+    category: "Video"
+  },
+  {
+    id: "video-speed",
+    name: "Change Speed",
+    description: "Speed up or slow down your videos",
+    icon: "fast-forward",
+    category: "Video"
+  },
+  {
+    id: "video-subtitle",
+    name: "Add Subtitles",
+    description: "Create and add subtitles to your videos",
+    icon: "message-square",
+    category: "Video"
+  },
+
+  // Convert Tools
   {
     id: "word-to-pdf",
     name: "Word to PDF",
@@ -180,6 +257,34 @@ export const toolsData: Tool[] = [
     id: "html-to-pdf",
     name: "HTML to PDF",
     description: "Convert web pages to PDF documents",
+    icon: "file-text",
+    category: "Convert"
+  },
+  {
+    id: "pdf-to-ppt",
+    name: "PDF to PowerPoint",
+    description: "Convert PDF files to PowerPoint presentations",
+    icon: "file-text",
+    category: "Convert"
+  },
+  {
+    id: "audio-convert",
+    name: "Audio Converter",
+    description: "Convert between audio formats (MP3, WAV, etc)",
+    icon: "music",
+    category: "Convert"
+  },
+  {
+    id: "epub-to-pdf",
+    name: "EPUB to PDF",
+    description: "Convert ebooks to PDF format",
+    icon: "book",
+    category: "Convert"
+  },
+  {
+    id: "csv-to-excel",
+    name: "CSV to Excel",
+    description: "Convert CSV files to Excel spreadsheets",
     icon: "file-text",
     category: "Convert"
   }
