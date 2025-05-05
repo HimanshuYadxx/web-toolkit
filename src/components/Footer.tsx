@@ -1,4 +1,6 @@
+
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -7,8 +9,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <span className="text-2xl font-bold text-primary">PDF</span>
-              <span className="text-2xl font-bold">ixit</span>
+              <Link to="/" className="flex items-center">
+                <span className="text-2xl font-bold text-primary">PDF</span>
+                <span className="text-2xl font-bold">ixit</span>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
               Simple online tools to make everyday tasks easier. Free, fast, and no registration required.
@@ -40,31 +44,30 @@ const Footer = () => {
           <div>
             <h3 className="font-medium mb-4">Tools</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary">PDF Tools</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Image Tools</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Video Tools</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">File Converters</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">All Tools</a></li>
+              <li><Link to="/tool/pdf-compress" className="text-muted-foreground hover:text-primary">PDF Tools</Link></li>
+              <li><Link to="/tool/image-compress" className="text-muted-foreground hover:text-primary">Image Tools</Link></li>
+              <li><Link to="/tool/video-compress" className="text-muted-foreground hover:text-primary">Video Tools</Link></li>
+              <li><Link to="/tool/word-to-pdf" className="text-muted-foreground hover:text-primary">File Converters</Link></li>
+              <li><Link to="/" className="text-muted-foreground hover:text-primary">All Tools</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-medium mb-4">Company</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary">About Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Contact</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Blog</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Careers</a></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-primary">About Us</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
+              <li><a href="https://blog.pdfixit.example.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">Blog</a></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-medium mb-4">Legal</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Terms of Service</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Privacy Policy</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Cookie Policy</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Security</a></li>
+              <li><Link to="/terms" className="text-muted-foreground hover:text-primary">Terms of Service</Link></li>
+              <li><Link to="/privacy" className="text-muted-foreground hover:text-primary">Privacy Policy</Link></li>
+              <li><Link to="/privacy" className="text-muted-foreground hover:text-primary">Cookie Policy</Link></li>
+              <li><Link to="/privacy#security" className="text-muted-foreground hover:text-primary">Security</Link></li>
             </ul>
           </div>
         </div>
@@ -74,12 +77,12 @@ const Footer = () => {
             © 2025 PDFixit. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+            <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary">
               Help Center
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+            </Link>
+            <Link to="/contact" className="text-sm text-muted-foreground hover:text-primary">
               Support
-            </a>
+            </Link>
             <a href="#" className="text-sm text-muted-foreground hover:text-primary">
               FAQ
             </a>

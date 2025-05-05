@@ -1,4 +1,7 @@
 
+import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ToolGrid from "@/components/ToolGrid";
@@ -6,15 +9,45 @@ import Footer from "@/components/Footer";
 import AdBanner from "@/components/AdBanner";
 
 const Index = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("search") || "";
+  const category = searchParams.get("category") || "all";
+  
+  // Scroll to top on param change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [searchQuery, category]);
+
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>PDFixit - Free Online PDF & Document Tools</title>
+        <meta name="description" content="Free online tools for PDF compression, conversion, merging, splitting and more. No registration required." />
+        <meta name="keywords" content="PDF tools, compress PDF, merge PDF, split PDF, convert PDF, free tools, online PDF editor" />
+        <meta property="og:title" content="PDFixit - Free Online PDF & Document Tools" />
+        <meta property="og:description" content="Free online tools for PDF compression, conversion, merging, splitting and more. No registration required." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://pdfixit.example.com" />
+        <meta property="og:image" content="https://pdfixit.example.com/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="PDFixit - Free Online PDF & Document Tools" />
+        <meta name="twitter:description" content="Free online tools for PDF compression, conversion, merging, splitting and more. No registration required." />
+        <link rel="canonical" href="https://pdfixit.example.com" />
+      </Helmet>
+      
       <Navbar />
       
       <main className="flex-grow">
         <Hero />
-        <ToolGrid />
         
-        <AdBanner slot="3854433005" className="container my-8" />
+        {/* Top ad placement */}
+        <AdBanner slot="1234567890" format="horizontal" className="container my-6" />
+        
+        <ToolGrid searchQuery={searchQuery} initialCategory={category} />
+        
+        {/* Middle ad placement */}
+        <AdBanner slot="3854433005" className="container my-8" format="rectangle" />
         
         {/* Features section */}
         <section className="bg-secondary/30 py-16">
@@ -73,6 +106,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+        
+        {/* Bottom ad placement */}
+        <AdBanner slot="9876543210" className="container my-8" format="horizontal" />
         
         {/* CTA section */}
         <section className="py-16">
