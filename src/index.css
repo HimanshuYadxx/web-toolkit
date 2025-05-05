@@ -104,6 +104,18 @@
   @apply bg-background/70 backdrop-blur-md border border-white/20 shadow-lg;
 }
 
+.glass-card {
+  @apply backdrop-blur-md bg-white/10 border border-white/20 shadow-lg transition-all;
+}
+
+.glass-button {
+  @apply shadow-sm hover:shadow-md transition-all;
+}
+
+.glass-nav {
+  @apply backdrop-blur-lg bg-white/80 border-b border-white/20 shadow-sm;
+}
+
 /* Tool Card Animation */
 .tool-card {
   @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;

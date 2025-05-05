@@ -97,22 +97,22 @@ const ToolCard = ({ name, description, icon, id }: ToolCardProps) => {
 
   return (
     <Card 
-      className={`tool-card overflow-hidden border border-border/60 bg-background/80 backdrop-blur-sm transition-all duration-300 ${
+      className={`tool-card overflow-hidden backdrop-blur-md bg-white/10 border border-white/20 shadow-lg transition-all duration-300 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
       <CardContent className="p-6">
-        <div className="bg-accent/50 w-16 h-16 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
+        <div className="backdrop-blur-lg bg-accent/30 w-16 h-16 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110 border border-white/10">
           <IconComponent />
         </div>
         <h3 className="text-lg font-semibold mb-2">{name}</h3>
         <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
-      <CardFooter className="bg-secondary/50 px-6 py-4">
+      <CardFooter className="bg-secondary/30 backdrop-blur-sm px-6 py-4 border-t border-white/10">
         <Button 
           variant="secondary" 
           size="sm" 
-          className="w-full font-medium transition-all duration-200 hover:bg-primary hover:text-white"
+          className="w-full font-medium transition-all duration-200 hover:bg-primary hover:text-white backdrop-blur-sm"
           asChild
         >
           <Link to={`/tool/${id}`}>
