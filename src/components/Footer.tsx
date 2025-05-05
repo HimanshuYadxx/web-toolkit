@@ -9,8 +9,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1 */}
           <div>
-            <Link to="/" className="inline-flex items-center mb-4">
-              <span className="text-xl font-bold text-black">PDFixit</span>
+            <Link to="/" className="inline-flex items-center mb-4 gap-2">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+              </div>
+              <span className="text-xl font-bold text-black">PD<span className="text-primary">Fixit</span></span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Free online tools for all your file conversion and editing needs. Simple, fast, and secure.
