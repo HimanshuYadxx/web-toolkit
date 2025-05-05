@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -8,8 +7,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <span className="text-2xl font-bold text-primary">Tiny</span>
-              <span className="text-2xl font-bold">Wow</span>
+              <span className="text-2xl font-bold text-primary">PDF</span>
+              <span className="text-2xl font-bold">ixit</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
               Simple online tools to make everyday tasks easier. Free, fast, and no registration required.
@@ -72,7 +71,7 @@ const Footer = () => {
 
         <div className="border-t border-border/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground mb-4 md:mb-0">
-            © 2025 TinyWow. All rights reserved.
+            © 2025 PDFixit. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a href="#" className="text-sm text-muted-foreground hover:text-primary">

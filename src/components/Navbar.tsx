@@ -15,8 +15,8 @@ const Navbar = () => {
       <div className="container flex items-center justify-between">
         <div className="flex items-center gap-2">
           <a href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary">Tiny</span>
-            <span className="text-2xl font-bold">Wow</span>
+            <span className="text-2xl font-bold text-primary">PDF</span>
+            <span className="text-2xl font-bold">ixit</span>
           </a>
 
           <nav className="hidden md:flex ml-8">

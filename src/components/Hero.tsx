@@ -8,16 +8,16 @@ const Hero = () => {
       <div className="absolute inset-0 gradient-bg opacity-10"></div>
       
       <div className="container relative px-4 py-16 md:py-24 lg:px-8 flex flex-col items-center text-center">
-        <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-accent rounded-full mb-4">
+        <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-accent rounded-full mb-4 animate-fade-in">
           100% Free Online Tools
         </span>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-          Make <span className="text-primary">Tiny</span> Changes, Get <span className="text-primary">Wow</span> Results!
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in" style={{ animationDelay: "150ms" }}>
+          Make <span className="text-primary">PDF</span> Solutions <span className="text-primary">Simple</span>!
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
-          Simple, free online tools to help with all your file conversions, compressions, and more. No registration, no downloads, just fast and easy solutions.
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
+          Simple, free online tools to help with all your PDF conversions, compressions, and more. No registration, no downloads, just fast and easy solutions.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: "450ms" }}>
           <Button size="lg" className="rounded-full">Get Started</Button>
           <Button size="lg" variant="outline" className="rounded-full">Explore Tools</Button>
         </div>
