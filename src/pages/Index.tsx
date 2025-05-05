@@ -1,12 +1,98 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import ToolGrid from "@/components/ToolGrid";
+import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      
+      <main className="flex-grow">
+        <Hero />
+        <ToolGrid />
+        
+        {/* Features section */}
+        <section className="bg-secondary/30 py-16">
+          <div className="container">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              Why Choose <span className="text-primary">TinyWow</span>?
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Feature 1 */}
+              <div className="bg-background p-6 rounded-lg text-center">
+                <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <h3 className="font-semibold mb-2">Easy to Use</h3>
+                <p className="text-sm text-muted-foreground">No technical skills required. Our tools are designed to be simple and intuitive.</p>
+              </div>
+              
+              {/* Feature 2 */}
+              <div className="bg-background p-6 rounded-lg text-center">
+                <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </div>
+                <h3 className="font-semibold mb-2">100% Secure</h3>
+                <p className="text-sm text-muted-foreground">Your files are processed securely and deleted automatically after 24 hours.</p>
+              </div>
+              
+              {/* Feature 3 */}
+              <div className="bg-background p-6 rounded-lg text-center">
+                <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <h3 className="font-semibold mb-2">Fast Processing</h3>
+                <p className="text-sm text-muted-foreground">Get your files processed quickly without waiting. Our tools are optimized for speed.</p>
+              </div>
+              
+              {/* Feature 4 */}
+              <div className="bg-background p-6 rounded-lg text-center">
+                <div className="w-12 h-12 mx-auto mb-4 bg-accent flex items-center justify-center rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <h3 className="font-semibold mb-2">No Registration</h3>
+                <p className="text-sm text-muted-foreground">Use our tools without creating an account. No personal information required.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* CTA section */}
+        <section className="py-16">
+          <div className="container">
+            <div className="bg-primary/10 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+              <div className="relative z-10">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to transform your files?</h2>
+                <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Start using our free tools today and discover how easy it is to manage your PDF, image, and video files online!
+                </p>
+                <Button size="lg" className="rounded-full">Get Started Now</Button>
+              </div>
+              
+              {/* Background decoration */}
+              <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-primary/20 rounded-full"></div>
+              <div className="absolute -left-10 -top-10 w-32 h-32 bg-primary/10 rounded-full"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
     </div>
   );
 };
