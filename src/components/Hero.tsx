@@ -1,5 +1,5 @@
 
-import { ArrowRight, Wrench, FilePdf } from "lucide-react";
+import { ArrowRight, Wrench, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -12,7 +12,7 @@ const Hero = () => {
         {/* Logo */}
         <div className="flex items-center mb-6">
           <div className="flex items-center mr-2">
-            <FilePdf className="h-8 w-8 text-black" />
+            <FileText className="h-8 w-8 text-black" />
             <Wrench className="h-6 w-6 text-black -ml-3 mt-3" />
           </div>
           <div className="font-sans font-bold text-2xl">
