@@ -1,5 +1,6 @@
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Wrench, FilePdf } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -8,6 +9,18 @@ const Hero = () => {
       <div className="absolute inset-0 gradient-bg opacity-10"></div>
       
       <div className="container relative px-4 py-12 md:py-20 lg:py-24 lg:px-8 flex flex-col items-center text-center">
+        {/* Logo */}
+        <div className="flex items-center mb-6">
+          <div className="flex items-center mr-2">
+            <FilePdf className="h-8 w-8 text-black" />
+            <Wrench className="h-6 w-6 text-black -ml-3 mt-3" />
+          </div>
+          <div className="font-sans font-bold text-2xl">
+            <span className="text-black">PD</span>
+            <span className="text-primary">Fixit</span>
+          </div>
+        </div>
+        
         <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-accent/80 backdrop-blur-sm rounded-full mb-4 animate-fade-in">
           100% Free Online Tools
         </span>

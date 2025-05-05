@@ -1,5 +1,4 @@
-
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube, Wrench, FilePdf } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -10,7 +9,14 @@ const Footer = () => {
           {/* Column 1 */}
           <div>
             <Link to="/" className="inline-flex items-center mb-4">
-              <span className="text-xl font-bold text-black">PDFixit</span>
+              <div className="flex items-center mr-2">
+                <FilePdf className="h-6 w-6 text-black" />
+                <Wrench className="h-5 w-5 text-black -ml-2 mt-2" />
+              </div>
+              <div className="font-sans font-bold text-xl">
+                <span className="text-black">PD</span>
+                <span className="text-primary">Fixit</span>
+              </div>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Free online tools for all your file conversion and editing needs. Simple, fast, and secure.
