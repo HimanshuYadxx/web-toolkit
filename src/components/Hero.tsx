@@ -1,5 +1,5 @@
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FileText, Wrench } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -12,7 +12,14 @@ const Hero = () => {
           100% Free Online Tools
         </span>
         <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in" style={{ animationDelay: "150ms" }}>
-          Make <span className="text-black">PDFixit</span> Solutions <span className="text-primary">Simple</span>!
+          <div className="flex items-center justify-center mb-2">
+            <div className="flex items-center mr-2">
+              <FileText className="h-8 w-8 lg:h-10 lg:w-10 text-black" />
+              <Wrench className="h-6 w-6 lg:h-8 lg:w-8 text-black -ml-2" />
+            </div>
+            <span className="text-black">PD<span className="text-primary">Fixit</span></span>
+          </div>
+          Make Solutions <span className="text-primary">Simple</span>!
         </h1>
         <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
           Simple, free online tools to help with all your PDF conversions, compressions, and more. No registration, no downloads, just fast and easy solutions.
