@@ -44,14 +44,6 @@ const Navbar = () => {
     if (isMenuOpen) setIsMenuOpen(false);
   };
 
-  const scrollToTools = () => {
-    const toolsSection = document.getElementById('tools');
-    if (toolsSection) {
-      toolsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    if (isMenuOpen) setIsMenuOpen(false);
-  };
-
   return (
     <header 
       className={`sticky top-0 z-50 transition-all duration-200 ${
@@ -66,11 +58,11 @@ const Navbar = () => {
 
           <nav className="hidden md:flex ml-8">
             <ul className="flex space-x-6">
-              <li><button onClick={scrollToTools} className="text-sm font-medium text-foreground hover:text-primary transition-colors">All Tools</button></li>
-              <li><button onClick={() => navigateToCategory('PDF')} className="text-sm font-medium text-foreground hover:text-primary transition-colors">PDF</button></li>
-              <li><button onClick={() => navigateToCategory('Image')} className="text-sm font-medium text-foreground hover:text-primary transition-colors">Image</button></li>
-              <li><button onClick={() => navigateToCategory('Video')} className="text-sm font-medium text-foreground hover:text-primary transition-colors">Video</button></li>
-              <li><button onClick={() => navigateToCategory('Convert')} className="text-sm font-medium text-foreground hover:text-primary transition-colors">Convert</button></li>
+              <li><Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">All Tools</Link></li>
+              <li><Link to="/?category=PDF" className="text-sm font-medium text-foreground hover:text-primary transition-colors">PDF</Link></li>
+              <li><Link to="/?category=Image" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Image</Link></li>
+              <li><Link to="/?category=Video" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Video</Link></li>
+              <li><Link to="/?category=Convert" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Convert</Link></li>
               <li><Link to="/blog" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Blog</Link></li>
             </ul>
           </nav>
@@ -104,7 +96,7 @@ const Navbar = () => {
           <div className="px-4 py-6 space-y-6 flex-1 overflow-y-auto">
             <nav>
               <ul className="space-y-4">
-                <li><button onClick={scrollToTools} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">All Tools</button></li>
+                <li><Link to="/" className="block text-lg font-medium text-foreground hover:text-primary">All Tools</Link></li>
                 <li><button onClick={() => navigateToCategory('PDF')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">PDF Tools</button></li>
                 <li><button onClick={() => navigateToCategory('Image')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">Image Tools</button></li>
                 <li><button onClick={() => navigateToCategory('Video')} className="block w-full text-left text-lg font-medium text-foreground hover:text-primary">Video Tools</button></li>
