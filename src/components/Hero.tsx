@@ -1,6 +1,4 @@
 
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
@@ -22,18 +20,7 @@ const Hero = () => {
             Over 40 powerful tools with no registration, no downloads, no file size limits.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: "450ms" }}>
-            <Button size="lg" className="glass-button bg-primary/80 backdrop-blur-sm hover:bg-primary/90 transition-all">
-              <Link to="/?category=PDF" className="flex items-center">
-                Explore PDF Tools <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="glass-button backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all">
-              <Link to="/?category=Image" className="flex items-center">
-                Image Tools <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
+          {/* Removed the buttons section */}
         </div>
 
         {/* Decorative elements - glass orbs */}
