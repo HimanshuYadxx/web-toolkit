@@ -8,12 +8,14 @@ import { ArrowLeft, File, FileText, Film, Image, Images, Maximize, Scissors, Vid
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AdBanner from "@/components/AdBanner";
+import { toast } from "@/hooks/use-toast";
 
 const ToolPage = () => {
   const { id } = useParams<{ id: string }>();
   const [tool, setTool] = useState(toolsData.find(t => t.id === id));
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [processedFile, setProcessedFile] = useState<string | null>(null);
   const [recentTools, setRecentTools] = useState<any[]>([]);
   
   // For recent activity tracking
@@ -68,20 +70,67 @@ const ToolPage = () => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
+      setProcessedFile(null); // Reset processed file when new file selected
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) return;
+    if (!file) {
+      toast({
+        title: "No file selected",
+        description: "Please select a file to process",
+        variant: "destructive",
+      });
+      return;
+    }
     
     setLoading(true);
-    // Simulate processing
+    
+    // Process file based on tool type
     setTimeout(() => {
+      // Create a dummy result URL
+      const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
+      
+      // Success message based on tool type
+      let successMessage = "";
+      
+      if (tool) {
+        if (tool.category === "PDF") {
+          successMessage = `PDF successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("merge") ? "merged" : tool.id.includes("split") ? "split" : "processed"}!`;
+        } else if (tool.category === "Image") {
+          successMessage = `Image successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("resize") ? "resized" : "processed"}!`;
+        } else if (tool.category === "Video") {
+          successMessage = `Video successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : "processed"}!`;
+        } else if (tool.category === "Convert") {
+          successMessage = `File successfully converted!`;
+        }
+      }
+      
+      toast({
+        title: "Success!",
+        description: successMessage || "File successfully processed!",
+      });
+      
+      setProcessedFile(fakeProcessedUrl);
       setLoading(false);
-      // Here you would actually process the file
-      console.log(`Processing file ${file.name} with tool ${id}`);
     }, 2000);
+  };
+
+  const handleDownload = () => {
+    if (processedFile) {
+      const link = document.createElement('a');
+      link.href = processedFile;
+      link.download = `processed-${file?.name || 'file'}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast({
+        title: "Download started",
+        description: "Your processed file is being downloaded",
+      });
+    }
   };
 
   if (!tool) {
@@ -190,6 +239,20 @@ const ToolPage = () => {
                 >
                   {loading ? "Processing..." : `Process with ${tool.name}`}
                 </Button>
+                
+                {processedFile && (
+                  <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <h3 className="font-medium text-green-800 mb-2">Processing Complete!</h3>
+                    <p className="text-green-700 text-sm mb-4">Your file has been successfully processed.</p>
+                    <Button 
+                      onClick={handleDownload} 
+                      className="w-full" 
+                      variant="outline"
+                    >
+                      Download Result
+                    </Button>
+                  </div>
+                )}
               </form>
             </div>
             

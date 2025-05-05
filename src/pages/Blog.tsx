@@ -1,211 +1,173 @@
 
-import { Helmet } from "react-helmet-async";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import AdBanner from "@/components/AdBanner";
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
 
-// Sample blog data
+// Dummy blog post data
 const blogPosts = [
   {
-    id: 1,
-    title: "How to Compress PDF Files Without Losing Quality",
-    excerpt: "Learn the best techniques for reducing PDF file size while maintaining document quality and readability.",
-    category: "PDF",
-    date: "May 2, 2025",
-    author: "Alex Johnson",
-    image: "https://images.unsplash.com/photo-1586772002345-339f8042a777?q=80&w=500&auto=format&fit=crop"
+    id: 'pdf-tips-tricks',
+    title: 'Top 10 PDF Tips and Tricks',
+    excerpt: 'Learn the most useful PDF hacks to boost your productivity and streamline your workflow.',
+    date: '2024-05-01',
+    category: 'PDF',
+    image: 'https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?q=80&w=1000'
   },
   {
-    id: 2,
-    title: "Converting Word Documents to PDF: Best Practices",
-    excerpt: "Discover the most efficient ways to convert your Word documents to PDF format while preserving formatting.",
-    category: "Conversion",
-    date: "April 28, 2025",
-    author: "Maria Garcia",
-    image: "https://images.unsplash.com/photo-1580048915913-4f8f5cb481c4?q=80&w=500&auto=format&fit=crop"
+    id: 'image-optimization',
+    title: 'Image Optimization: The Complete Guide',
+    excerpt: 'Everything you need to know about optimizing your images for web and print without losing quality.',
+    date: '2024-04-25',
+    category: 'Image',
+    image: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=1000'
   },
   {
-    id: 3,
-    title: "Image Optimization Techniques for Better Website Performance",
-    excerpt: "Improve your website's loading speed by implementing these image optimization techniques.",
-    category: "Image",
-    date: "April 22, 2025",
-    author: "David Kim",
-    image: "https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=500&auto=format&fit=crop"
+    id: 'video-compression',
+    title: 'Video Compression Techniques',
+    excerpt: 'Learn how to compress your videos while maintaining good quality for different platforms.',
+    date: '2024-04-18',
+    category: 'Video',
+    image: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?q=80&w=1000'
   },
   {
-    id: 4,
-    title: "Securing Your PDF Files: A Complete Guide",
-    excerpt: "Learn how to protect your PDF documents with passwords, encryption, and other security features.",
-    category: "Security",
-    date: "April 15, 2025",
-    author: "Emily Thompson",
-    image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=500&auto=format&fit=crop"
+    id: 'file-conversions',
+    title: 'When to Convert: File Format Guide',
+    excerpt: 'A comprehensive guide to choosing the right file format for your specific needs.',
+    date: '2024-04-10',
+    category: 'Convert',
+    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000'
   },
   {
-    id: 5,
-    title: "Tips for Creating Accessible PDF Documents",
-    excerpt: "Make your PDFs accessible to all users, including those with disabilities, with these essential tips.",
-    category: "Accessibility",
-    date: "April 8, 2025",
-    author: "Michael Brown",
-    image: "https://images.unsplash.com/photo-1568566636506-5e7da927fdaa?q=80&w=500&auto=format&fit=crop"
+    id: 'pdf-security',
+    title: 'PDF Security Best Practices',
+    excerpt: 'How to secure your PDF files and protect sensitive information from unauthorized access.',
+    date: '2024-04-02',
+    category: 'PDF',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000'
   },
   {
-    id: 6,
-    title: "Video Compression: Balancing Quality and File Size",
-    excerpt: "Find the perfect balance between video quality and file size with these compression techniques.",
-    category: "Video",
-    date: "April 1, 2025",
-    author: "Sarah Davis",
-    image: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=500&auto=format&fit=crop"
+    id: 'image-formats',
+    title: 'Understanding Image Formats',
+    excerpt: 'JPG, PNG, WebP, SVG - When to use each image format for optimal results.',
+    date: '2024-03-28',
+    category: 'Image',
+    image: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1000'
   }
 ];
 
-// Blog categories
-const categories = ["All", "PDF", "Image", "Video", "Conversion", "Security", "Accessibility"];
-
 const Blog = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
 
-  // Filter posts based on search query and category
+  // Filter posts based on search term and category
   const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = activeCategory === "All" || post.category === activeCategory;
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
     return matchesSearch && matchesCategory;
   });
 
+  const categories = ['All', ...new Set(blogPosts.map(post => post.category))];
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>Blog - PDFixit</title>
-        <meta name="description" content="Read the latest articles, tutorials, and guides about PDF tools and document management." />
-        <meta name="keywords" content="PDF tools, document management, blog, tutorials, guides" />
+        <title>Blog - PDFixit: Tips, Guides & Tutorials</title>
+        <meta name="description" content="Read our latest articles about file editing, conversions, and digital document management." />
       </Helmet>
-      
+
       <Navbar />
       
       <main className="flex-grow">
         {/* Hero section */}
-        <section className="bg-gradient-to-b from-primary/10 to-transparent py-12">
-          <div className="container">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">PDFixit Blog</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
-              Tutorials, guides, and tips to help you get the most out of our tools and manage your documents effectively.
+        <div className="bg-gradient-to-b from-primary/10 to-transparent py-12 md:py-20">
+          <div className="container text-center">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4">PDFixit Blog</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Tips, guides and tutorials to help you get the most out of digital files
             </p>
           </div>
-        </section>
+        </div>
         
-        {/* Search and filter */}
-        <section className="container py-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
-            <div className="relative w-full md:w-auto">
+        {/* Search and category filters */}
+        <div className="container py-8">
+          <div className="flex flex-col md:flex-row gap-4 justify-between mb-8">
+            <div className="relative w-full md:w-72">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <input 
-                type="text" 
-                placeholder="Search articles..." 
-                className="pl-10 pr-4 py-2 rounded-full text-sm bg-secondary focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-64"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+              <Input
+                type="text"
+                placeholder="Search articles..."
+                className="pl-10"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             
             <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
+              {categories.map(category => (
+                <Button
                   key={category}
+                  variant={activeCategory === category ? "default" : "outline"}
+                  size="sm"
                   onClick={() => setActiveCategory(category)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    activeCategory === category
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary hover:bg-secondary/80"
-                  }`}
                 >
                   {category}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
-          
-          {/* Top ad */}
-          <AdBanner slot="1234567890" format="horizontal" className="mb-8" />
           
           {/* Blog posts grid */}
-          {filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPosts.map(post => (
-                <article 
-                  key={post.id} 
-                  className="bg-background/80 backdrop-blur-sm border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-                >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map(post => (
+                <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-sm border border-border/60 hover:shadow-md transition-shadow">
                   <div className="h-48 overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      alt={post.title} 
-                      className="w-full h-full object-cover" 
-                    />
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="p-6">
-                    <span className="inline-block px-2 py-1 rounded text-xs font-medium bg-primary/10 text-primary mb-2">
-                      {post.category}
-                    </span>
-                    <h2 className="text-xl font-semibold mb-2">
-                      <Link to={`/blog/${post.id}`} className="hover:text-primary transition-colors">
-                        {post.title}
-                      </Link>
-                    </h2>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>{post.author}</span>
-                      <span>{post.date}</span>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="inline-block px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded">
+                        {post.category}
+                      </span>
+                      <span className="text-sm text-muted-foreground">{post.date}</span>
                     </div>
+                    <h2 className="text-xl font-bold mb-2">{post.title}</h2>
+                    <p className="text-muted-foreground text-sm mb-4">{post.excerpt}</p>
+                    <Button variant="ghost" className="text-primary hover:text-primary/90 p-0">
+                      Read more
+                    </Button>
                   </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <h2 className="text-xl font-medium mb-2">No articles found</h2>
-              <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
-            </div>
-          )}
-          
-          {/* Bottom ad */}
-          <AdBanner slot="9876543210" format="horizontal" className="mt-8" />
-        </section>
-        
-        {/* Newsletter section */}
-        <section className="bg-secondary/30 py-12 mt-8">
-          <div className="container max-w-3xl text-center">
-            <h2 className="text-2xl font-bold mb-4">Subscribe to Our Newsletter</h2>
-            <p className="text-muted-foreground mb-6">
-              Get the latest tips, tutorials, and updates delivered directly to your inbox.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="flex-1 px-4 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-primary"
-                required
-              />
-              <button 
-                type="submit" 
-                className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-16">
+                <h3 className="text-xl font-medium mb-2">No articles found</h3>
+                <p className="text-muted-foreground">Try adjusting your search or category filter</p>
+              </div>
+            )}
           </div>
-        </section>
+          
+          {/* Newsletter signup */}
+          <div className="bg-secondary/50 rounded-xl p-8 md:p-12 text-center mb-12">
+            <h3 className="text-2xl font-bold mb-2">Subscribe to our newsletter</h3>
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">Get the latest PDFixit tips, tutorials and updates delivered directly to your inbox</p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input 
+                type="email" 
+                placeholder="Enter your email address" 
+                className="flex-grow"
+              />
+              <Button>Subscribe</Button>
+            </div>
+          </div>
+        </div>
       </main>
-      
+
       <Footer />
     </div>
   );
