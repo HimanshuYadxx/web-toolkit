@@ -1,3 +1,4 @@
+
 import { supabase } from "@/integrations/supabase/client";
 
 // Types
@@ -41,9 +42,20 @@ export const callApiViaSupabase = async <T>(options: ApiOptions): Promise<T> => 
 // Function to save API key to Supabase
 export const saveApiKey = async (apiKey: string): Promise<{ id: string }> => {
   try {
+    // First, get the current user ID
+    const { data: authData } = await supabase.auth.getSession();
+    const userId = authData.session?.user.id;
+    
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+    
     const { data, error } = await supabase
       .from('user_api_keys')
-      .insert({ api_key: apiKey })
+      .insert({ 
+        api_key: apiKey,
+        user_id: userId 
+      })
       .select('id')
       .single();
     
@@ -65,17 +77,16 @@ export const saveApiKey = async (apiKey: string): Promise<{ id: string }> => {
 // Function to check if user has an API key stored
 export const hasApiKey = async (): Promise<boolean> => {
   try {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('user_api_keys')
       .select('id')
       .limit(1);
     
-    if (error) {
-      console.error('Error checking for API key:', error);
+    if (!data) {
       return false;
     }
     
-    return data && data.length > 0;
+    return data.length > 0;
   } catch (error) {
     console.error('Check API key error:', error);
     return false;
