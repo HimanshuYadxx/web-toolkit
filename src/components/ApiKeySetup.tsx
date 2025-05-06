@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 
 const ApiKeySetup = () => {
-  const [apiKey, setApiKeyState] = useState<string>("");
+  const [apiKey, setApiKeyState] = useState<string>("secret_key_d40508673e64934cbbe4cfa984d156e4_fwAVDc6bb36a5117bd1e2b75b7c30fbfbbeed");
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -97,6 +97,13 @@ const ApiKeySetup = () => {
     setApiKeyState(e.target.value);
     setIsSaved(false);
   };
+  
+  // Auto-save the API key when the component loads if the user is logged in
+  useEffect(() => {
+    if (isLoggedIn && !isLoading && !isSaved && apiKey) {
+      handleSaveKey();
+    }
+  }, [isLoggedIn, isLoading, isSaved, apiKey]);
   
   if (isLoading) {
     return (
