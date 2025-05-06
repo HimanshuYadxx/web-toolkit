@@ -11,6 +11,8 @@ import AdBanner from "@/components/AdBanner";
 import { toast } from "@/hooks/use-toast";
 import { hasApiKey } from "@/utils/supabaseApiService";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { callApiViaSupabase } from "@/utils/supabaseApiService";
+import { supabase } from "@/integrations/supabase/client";
 
 const ToolPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,15 +22,26 @@ const ToolPage = () => {
   const [processedFile, setProcessedFile] = useState<string | null>(null);
   const [recentTools, setRecentTools] = useState<any[]>([]);
   const [apiEnabled, setApiEnabled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
-  // Check if API key is available
+  // Check if user is logged in and API key is available
   useEffect(() => {
-    const checkApiKey = async () => {
-      const hasKey = await hasApiKey();
-      setApiEnabled(hasKey);
+    const checkStatus = async () => {
+      // Check login status
+      const { data } = await supabase.auth.getSession();
+      const loggedIn = !!data.session;
+      setIsLoggedIn(loggedIn);
+      
+      // Check API key availability
+      if (loggedIn) {
+        const hasKey = await hasApiKey();
+        setApiEnabled(hasKey);
+      } else {
+        setApiEnabled(false);
+      }
     };
     
-    checkApiKey();
+    checkStatus();
   }, []);
   
   // For recent activity tracking
@@ -95,8 +108,18 @@ const ToolPage = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!isLoggedIn) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to use this tool",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     if (!file) {
       toast({
         title: "No file selected",
@@ -117,26 +140,78 @@ const ToolPage = () => {
     
     setLoading(true);
     
-    // Simulate API processing
-    setTimeout(() => {
-      // Create a dummy result URL
-      const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
+    try {
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        const base64File = reader.result?.toString().split(',')[1];
+        
+        if (!base64File) {
+          throw new Error("Failed to encode file");
+        }
+        
+        // Call the API via Supabase edge function
+        const response = await callApiViaSupabase<any>({
+          endpoint: `/convert/${tool?.id || 'file-convert'}`,
+          method: 'POST',
+          body: {
+            fileName: file.name,
+            fileContent: base64File,
+            fileType: file.type
+          }
+        });
+        
+        if (response.error) {
+          throw new Error(response.error);
+        }
+        
+        // Create a blob URL from the response
+        const blob = base64ToBlob(response.result, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        const processedUrl = URL.createObjectURL(blob);
+        
+        setProcessedFile(processedUrl);
+        setLoading(false);
+        
+        toast({
+          title: "Success!",
+          description: `File processed: ${tool?.name || 'Tool'}`,
+        });
+      };
       
-      setProcessedFile(fakeProcessedUrl);
+      reader.onerror = (error) => {
+        throw new Error("Error reading file");
+      };
+    } catch (error: any) {
       setLoading(false);
-      
       toast({
-        title: "Success!",
-        description: `File processed via API: ${tool?.name || 'Tool'}`,
+        title: "Error",
+        description: error.message || "Failed to process file",
+        variant: "destructive",
       });
-    }, 2000);
+    }
+  };
+
+  // Helper function to convert base64 to Blob
+  const base64ToBlob = (base64: string, mimeType: string) => {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
   };
 
   const handleDownload = () => {
     if (processedFile) {
       const link = document.createElement('a');
       link.href = processedFile;
-      link.download = `processed-${file?.name || 'file'}`;
+      const outputFileName = file?.name.replace(/\.[^/.]+$/, '') || 'processed-file';
+      const extension = tool?.id === 'csv-to-excel' ? '.xlsx' : '.csv';
+      link.download = outputFileName + extension;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -206,9 +281,22 @@ const ToolPage = () => {
         {/* Top ad placement */}
         <AdBanner slot="1234567890" format="horizontal" className="container my-6" />
         
-        {/* API Status Alert */}
+        {/* API Status and Login Alert */}
         <div className="container max-w-3xl mx-auto mb-6">
-          {!apiEnabled && (
+          {!isLoggedIn && (
+            <Alert className="bg-red-50 border-red-200">
+              <Shield className="h-4 w-4 text-red-600" />
+              <AlertTitle className="text-red-800">Authentication Required</AlertTitle>
+              <AlertDescription className="text-red-700">
+                You need to log in to use this tool.
+                <Link to="/login" className="text-red-800 underline ml-1">
+                  Log in now
+                </Link>
+              </AlertDescription>
+            </Alert>
+          )}
+          
+          {isLoggedIn && !apiEnabled && (
             <Alert className="bg-red-50 border-red-200">
               <Shield className="h-4 w-4 text-red-600" />
               <AlertTitle className="text-red-800">API Access Required</AlertTitle>
@@ -235,15 +323,18 @@ const ToolPage = () => {
                     id="file-upload" 
                     className="hidden" 
                     onChange={handleFileChange}
-                    disabled={!apiEnabled}
+                    disabled={!isLoggedIn || !apiEnabled}
+                    accept={tool.id === 'csv-to-excel' ? '.csv' : '.xlsx,.xls'}
                   />
                   <label 
                     htmlFor="file-upload" 
-                    className={`cursor-pointer flex flex-col items-center justify-center ${!apiEnabled ? 'opacity-50' : ''}`}
+                    className={`cursor-pointer flex flex-col items-center justify-center ${(!isLoggedIn || !apiEnabled) ? 'opacity-50' : ''}`}
                   >
                     <File className="h-12 w-12 text-muted-foreground mb-4" />
                     <p className="text-lg font-medium mb-1">Drop your file here or click to browse</p>
-                    <p className="text-sm text-muted-foreground">Upload any file size</p>
+                    <p className="text-sm text-muted-foreground">
+                      {tool.id === 'csv-to-excel' ? 'Upload CSV file to convert to Excel' : 'Upload Excel file to convert to CSV'}
+                    </p>
                   </label>
                 </div>
                 
@@ -266,7 +357,7 @@ const ToolPage = () => {
                 
                 <Button 
                   type="submit" 
-                  disabled={!file || loading || !apiEnabled} 
+                  disabled={!file || loading || !isLoggedIn || !apiEnabled} 
                   className="w-full"
                 >
                   {loading ? "Processing..." : `Process with ${tool.name}`}
@@ -320,13 +411,21 @@ const ToolPage = () => {
                 <div className="flex gap-4">
                   <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">1</div>
                   <div>
+                    <h3 className="font-medium mb-1">Create an account</h3>
+                    <p className="text-muted-foreground">Sign up or log in to access our API-powered tools.</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">2</div>
+                  <div>
                     <h3 className="font-medium mb-1">Set up API access</h3>
                     <p className="text-muted-foreground">Visit the API settings page to add your iLoveAPI key.</p>
                   </div>
                 </div>
                 
                 <div className="flex gap-4">
-                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">2</div>
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">3</div>
                   <div>
                     <h3 className="font-medium mb-1">Upload your file</h3>
                     <p className="text-muted-foreground">Drop your file in the upload area or click to browse your files.</p>
@@ -334,7 +433,7 @@ const ToolPage = () => {
                 </div>
                 
                 <div className="flex gap-4">
-                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">3</div>
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">4</div>
                   <div>
                     <h3 className="font-medium mb-1">Process your file</h3>
                     <p className="text-muted-foreground">Click the process button and wait for the tool to finish.</p>
@@ -342,7 +441,7 @@ const ToolPage = () => {
                 </div>
                 
                 <div className="flex gap-4">
-                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">4</div>
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">5</div>
                   <div>
                     <h3 className="font-medium mb-1">Download results</h3>
                     <p className="text-muted-foreground">Once processing is complete, download your processed file.</p>
