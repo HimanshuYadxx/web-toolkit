@@ -1,16 +1,33 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { callApi, hasApiKey } from "@/utils/apiService";
+import { callApiViaSupabase, hasApiKey } from "@/utils/supabaseApiService";
 import { toast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 const ApiTest = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const navigate = useNavigate();
   
   const testApiConnection = async () => {
-    if (!hasApiKey()) {
+    const { data } = await supabase.auth.getSession();
+    const loggedIn = !!data.session;
+    
+    if (!loggedIn) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to test the API connection.",
+        variant: "destructive",
+      });
+      navigate("/login");
+      return;
+    }
+    
+    const hasKey = await hasApiKey();
+    if (!hasKey) {
       toast({
         title: "API Key Required",
         description: "Please set your API key first.",
@@ -24,10 +41,11 @@ const ApiTest = () => {
     
     try {
       // This is a placeholder endpoint - replace with an actual endpoint from your API
-      const data = await callApi<any>({ 
+      const data = await callApiViaSupabase<any>({ 
         endpoint: '/test',
         method: 'GET'
       });
+      
       setResult(data);
       toast({
         title: "Success",

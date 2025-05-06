@@ -3,23 +3,45 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { getApiKey, setApiKey, removeApiKey } from "@/utils/apiService";
+import { saveApiKey, removeApiKey, hasApiKey } from "@/utils/supabaseApiService";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 const ApiKeySetup = () => {
   const [apiKey, setApiKeyState] = useState<string>("");
   const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
-    const savedKey = getApiKey();
-    setIsSaved(!!savedKey);
-    if (savedKey) {
-      // Mask the key for security
-      setApiKeyState("●".repeat(20));
-    }
+    // Check if user is logged in
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      const loggedIn = !!data.session;
+      setIsLoggedIn(loggedIn);
+      
+      if (loggedIn) {
+        // Check if API key exists
+        const keyExists = await hasApiKey();
+        setIsSaved(keyExists);
+        if (keyExists) {
+          setApiKeyState("●".repeat(20));
+        }
+      }
+      
+      setIsLoading(false);
+    };
+    
+    checkSession();
   }, []);
   
-  const handleSaveKey = () => {
+  const handleLoginRedirect = () => {
+    navigate("/login");
+  };
+  
+  const handleSaveKey = async () => {
     if (!apiKey.trim()) {
       toast({
         title: "Error",
@@ -29,8 +51,10 @@ const ApiKeySetup = () => {
       return;
     }
     
+    setIsLoading(true);
+    
     try {
-      setApiKey(apiKey);
+      await saveApiKey(apiKey);
       setIsSaved(true);
       toast({
         title: "Success",
@@ -39,26 +63,72 @@ const ApiKeySetup = () => {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to save API key",
+        description: "Failed to save API key: " + (error.message || "Unknown error"),
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
   
-  const handleRemoveKey = () => {
-    removeApiKey();
-    setApiKeyState("");
-    setIsSaved(false);
-    toast({
-      title: "Success",
-      description: "API key removed",
-    });
+  const handleRemoveKey = async () => {
+    setIsLoading(true);
+    
+    try {
+      await removeApiKey();
+      setApiKeyState("");
+      setIsSaved(false);
+      toast({
+        title: "Success",
+        description: "API key removed",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to remove API key: " + (error.message || "Unknown error"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setApiKeyState(e.target.value);
     setIsSaved(false);
   };
+  
+  if (isLoading) {
+    return (
+      <Card className="max-w-md mx-auto">
+        <CardContent className="py-6">
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+  
+  if (!isLoggedIn) {
+    return (
+      <Card className="max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle>API Key Setup</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-4">
+            You need to be logged in to save your API key securely.
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Button onClick={handleLoginRedirect} className="w-full">
+            Log in to continue
+          </Button>
+        </CardFooter>
+      </Card>
+    );
+  }
   
   return (
     <Card className="max-w-md mx-auto">
@@ -77,18 +147,28 @@ const ApiKeySetup = () => {
               value={apiKey}
               onChange={handleInputChange}
               placeholder="Enter your API key"
+              disabled={isLoading}
             />
           </div>
           <p className="text-xs text-muted-foreground">
-            Your API key is stored securely in your browser and is only sent to the API server when making requests.
+            Your API key is stored securely in the database and is only sent to the API server when making requests.
           </p>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={handleRemoveKey} disabled={!isSaved}>
+        <Button 
+          variant="outline" 
+          onClick={handleRemoveKey} 
+          disabled={!isSaved || isLoading}
+        >
           Remove Key
         </Button>
-        <Button onClick={handleSaveKey}>Save Key</Button>
+        <Button 
+          onClick={handleSaveKey} 
+          disabled={isLoading}
+        >
+          Save Key
+        </Button>
       </CardFooter>
     </Card>
   );

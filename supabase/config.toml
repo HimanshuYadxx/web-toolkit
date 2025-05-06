@@ -1,1 +1,9 @@
+
 project_id = "oibjfhbkmpzieqqwlgrv"
+
+[api]
+enabled = true
+
+[functions]
+[functions.api-proxy]
+verify_jwt = true
