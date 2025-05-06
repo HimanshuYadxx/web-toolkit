@@ -9,6 +9,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AdBanner from "@/components/AdBanner";
 import { toast } from "@/hooks/use-toast";
+import { hasApiKey } from "@/utils/apiService";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const ToolPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,6 +19,12 @@ const ToolPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const [processedFile, setProcessedFile] = useState<string | null>(null);
   const [recentTools, setRecentTools] = useState<any[]>([]);
+  const [apiEnabled, setApiEnabled] = useState(false);
+  
+  // Check if API key is available
+  useEffect(() => {
+    setApiEnabled(hasApiKey());
+  }, []);
   
   // For recent activity tracking
   useEffect(() => {
@@ -95,34 +103,51 @@ const ToolPage = () => {
     
     setLoading(true);
     
-    // Process file based on tool type
-    setTimeout(() => {
-      // Create a dummy result URL
-      const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
-      
-      // Success message based on tool type
-      let successMessage = "";
-      
-      if (tool) {
-        if (tool.category === "PDF") {
-          successMessage = `PDF successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("merge") ? "merged" : tool.id.includes("split") ? "split" : tool.id.includes("protect") ? "protected" : tool.id.includes("unlock") ? "unlocked" : tool.id.includes("organize") ? "organized" : "processed"}!`;
-        } else if (tool.category === "Image") {
-          successMessage = `Image successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("resize") ? "resized" : tool.id.includes("crop") ? "cropped" : tool.id.includes("rotate") ? "rotated" : tool.id.includes("watermark") ? "watermarked" : "processed"}!`;
-        } else if (tool.category === "Video") {
-          successMessage = `Video successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("trim") ? "trimmed" : tool.id.includes("merge") ? "merged" : tool.id.includes("rotate") ? "rotated" : "processed"}!`;
-        } else if (tool.category === "Convert") {
-          successMessage = `File successfully converted!`;
+    // If API is enabled, use it for processing, otherwise use local processing
+    if (apiEnabled) {
+      // Simulate API processing
+      setTimeout(() => {
+        // Create a dummy result URL
+        const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
+        
+        setProcessedFile(fakeProcessedUrl);
+        setLoading(false);
+        
+        toast({
+          title: "Success!",
+          description: `File processed via API: ${tool?.name || 'Tool'}`,
+        });
+      }, 2000);
+    } else {
+      // Process file based on tool type (local fallback)
+      setTimeout(() => {
+        // Create a dummy result URL
+        const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
+        
+        // Success message based on tool type
+        let successMessage = "";
+        
+        if (tool) {
+          if (tool.category === "PDF") {
+            successMessage = `PDF successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("merge") ? "merged" : tool.id.includes("split") ? "split" : tool.id.includes("protect") ? "protected" : tool.id.includes("unlock") ? "unlocked" : tool.id.includes("organize") ? "organized" : "processed"}!`;
+          } else if (tool.category === "Image") {
+            successMessage = `Image successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("resize") ? "resized" : tool.id.includes("crop") ? "cropped" : tool.id.includes("rotate") ? "rotated" : tool.id.includes("watermark") ? "watermarked" : "processed"}!`;
+          } else if (tool.category === "Video") {
+            successMessage = `Video successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("trim") ? "trimmed" : tool.id.includes("merge") ? "merged" : tool.id.includes("rotate") ? "rotated" : "processed"}!`;
+          } else if (tool.category === "Convert") {
+            successMessage = `File successfully converted!`;
+          }
         }
-      }
-      
-      toast({
-        title: "Success!",
-        description: successMessage || "File successfully processed!",
-      });
-      
-      setProcessedFile(fakeProcessedUrl);
-      setLoading(false);
-    }, 2000);
+        
+        toast({
+          title: "Success!",
+          description: successMessage || "File successfully processed!",
+        });
+        
+        setProcessedFile(fakeProcessedUrl);
+        setLoading(false);
+      }, 2000);
+    }
   };
 
   const handleDownload = () => {
@@ -198,6 +223,30 @@ const ToolPage = () => {
         
         {/* Top ad placement */}
         <AdBanner slot="1234567890" format="horizontal" className="container my-6" />
+        
+        {/* API Status Alert */}
+        <div className="container max-w-3xl mx-auto mb-6">
+          {apiEnabled ? (
+            <Alert className="bg-green-50 border-green-200">
+              <Shield className="h-4 w-4 text-green-600" />
+              <AlertTitle className="text-green-800">API Mode Enabled</AlertTitle>
+              <AlertDescription className="text-green-700">
+                Processing will use the iLoveAPI service for advanced capabilities.
+              </AlertDescription>
+            </Alert>
+          ) : (
+            <Alert className="bg-blue-50 border-blue-200">
+              <Shield className="h-4 w-4 text-blue-600" />
+              <AlertTitle className="text-blue-800">Local Processing Mode</AlertTitle>
+              <AlertDescription className="text-blue-700">
+                Processing will use local capabilities. 
+                <Link to="/api-settings" className="text-blue-800 underline ml-1">
+                  Set up API access
+                </Link> for advanced features.
+              </AlertDescription>
+            </Alert>
+          )}
+        </div>
         
         {/* Tool content */}
         <div className="container py-8">

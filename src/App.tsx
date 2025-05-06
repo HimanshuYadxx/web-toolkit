@@ -17,6 +17,7 @@ import HelpCenter from "./pages/HelpCenter";
 import Support from "./pages/Support";
 import CookiePolicy from "./pages/CookiePolicy";
 import Security from "./pages/Security";
+import ApiSettings from "./pages/ApiSettings";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/support" element={<Support />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/security" element={<Security />} />
+          <Route path="/api-settings" element={<ApiSettings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
