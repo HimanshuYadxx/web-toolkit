@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AdBanner from "@/components/AdBanner";
 import { toast } from "@/hooks/use-toast";
-import { hasApiKey } from "@/utils/apiService";
+import { hasApiKey } from "@/utils/supabaseApiService";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const ToolPage = () => {
@@ -23,7 +23,12 @@ const ToolPage = () => {
   
   // Check if API key is available
   useEffect(() => {
-    setApiEnabled(hasApiKey());
+    const checkApiKey = async () => {
+      const hasKey = await hasApiKey();
+      setApiEnabled(hasKey);
+    };
+    
+    checkApiKey();
   }, []);
   
   // For recent activity tracking
@@ -101,53 +106,30 @@ const ToolPage = () => {
       return;
     }
     
+    if (!apiEnabled) {
+      toast({
+        title: "API Access Required",
+        description: "You need to set up API access before processing files",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
     
-    // If API is enabled, use it for processing, otherwise use local processing
-    if (apiEnabled) {
-      // Simulate API processing
-      setTimeout(() => {
-        // Create a dummy result URL
-        const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
-        
-        setProcessedFile(fakeProcessedUrl);
-        setLoading(false);
-        
-        toast({
-          title: "Success!",
-          description: `File processed via API: ${tool?.name || 'Tool'}`,
-        });
-      }, 2000);
-    } else {
-      // Process file based on tool type (local fallback)
-      setTimeout(() => {
-        // Create a dummy result URL
-        const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
-        
-        // Success message based on tool type
-        let successMessage = "";
-        
-        if (tool) {
-          if (tool.category === "PDF") {
-            successMessage = `PDF successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("merge") ? "merged" : tool.id.includes("split") ? "split" : tool.id.includes("protect") ? "protected" : tool.id.includes("unlock") ? "unlocked" : tool.id.includes("organize") ? "organized" : "processed"}!`;
-          } else if (tool.category === "Image") {
-            successMessage = `Image successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("resize") ? "resized" : tool.id.includes("crop") ? "cropped" : tool.id.includes("rotate") ? "rotated" : tool.id.includes("watermark") ? "watermarked" : "processed"}!`;
-          } else if (tool.category === "Video") {
-            successMessage = `Video successfully ${tool.id.includes("compress") ? "compressed" : tool.id.includes("convert") ? "converted" : tool.id.includes("trim") ? "trimmed" : tool.id.includes("merge") ? "merged" : tool.id.includes("rotate") ? "rotated" : "processed"}!`;
-          } else if (tool.category === "Convert") {
-            successMessage = `File successfully converted!`;
-          }
-        }
-        
-        toast({
-          title: "Success!",
-          description: successMessage || "File successfully processed!",
-        });
-        
-        setProcessedFile(fakeProcessedUrl);
-        setLoading(false);
-      }, 2000);
-    }
+    // Simulate API processing
+    setTimeout(() => {
+      // Create a dummy result URL
+      const fakeProcessedUrl = URL.createObjectURL(new Blob([file], { type: file.type }));
+      
+      setProcessedFile(fakeProcessedUrl);
+      setLoading(false);
+      
+      toast({
+        title: "Success!",
+        description: `File processed via API: ${tool?.name || 'Tool'}`,
+      });
+    }, 2000);
   };
 
   const handleDownload = () => {
@@ -226,23 +208,15 @@ const ToolPage = () => {
         
         {/* API Status Alert */}
         <div className="container max-w-3xl mx-auto mb-6">
-          {apiEnabled ? (
-            <Alert className="bg-green-50 border-green-200">
-              <Shield className="h-4 w-4 text-green-600" />
-              <AlertTitle className="text-green-800">API Mode Enabled</AlertTitle>
-              <AlertDescription className="text-green-700">
-                Processing will use the iLoveAPI service for advanced capabilities.
-              </AlertDescription>
-            </Alert>
-          ) : (
-            <Alert className="bg-blue-50 border-blue-200">
-              <Shield className="h-4 w-4 text-blue-600" />
-              <AlertTitle className="text-blue-800">Local Processing Mode</AlertTitle>
-              <AlertDescription className="text-blue-700">
-                Processing will use local capabilities. 
-                <Link to="/api-settings" className="text-blue-800 underline ml-1">
-                  Set up API access
-                </Link> for advanced features.
+          {!apiEnabled && (
+            <Alert className="bg-red-50 border-red-200">
+              <Shield className="h-4 w-4 text-red-600" />
+              <AlertTitle className="text-red-800">API Access Required</AlertTitle>
+              <AlertDescription className="text-red-700">
+                You need to set up API access to use this tool.
+                <Link to="/api-settings" className="text-red-800 underline ml-1">
+                  Set up API access now
+                </Link>
               </AlertDescription>
             </Alert>
           )}
@@ -261,10 +235,11 @@ const ToolPage = () => {
                     id="file-upload" 
                     className="hidden" 
                     onChange={handleFileChange}
+                    disabled={!apiEnabled}
                   />
                   <label 
                     htmlFor="file-upload" 
-                    className="cursor-pointer flex flex-col items-center justify-center"
+                    className={`cursor-pointer flex flex-col items-center justify-center ${!apiEnabled ? 'opacity-50' : ''}`}
                   >
                     <File className="h-12 w-12 text-muted-foreground mb-4" />
                     <p className="text-lg font-medium mb-1">Drop your file here or click to browse</p>
@@ -291,7 +266,7 @@ const ToolPage = () => {
                 
                 <Button 
                   type="submit" 
-                  disabled={!file || loading} 
+                  disabled={!file || loading || !apiEnabled} 
                   className="w-full"
                 >
                   {loading ? "Processing..." : `Process with ${tool.name}`}
@@ -345,13 +320,21 @@ const ToolPage = () => {
                 <div className="flex gap-4">
                   <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">1</div>
                   <div>
+                    <h3 className="font-medium mb-1">Set up API access</h3>
+                    <p className="text-muted-foreground">Visit the API settings page to add your iLoveAPI key.</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">2</div>
+                  <div>
                     <h3 className="font-medium mb-1">Upload your file</h3>
                     <p className="text-muted-foreground">Drop your file in the upload area or click to browse your files.</p>
                   </div>
                 </div>
                 
                 <div className="flex gap-4">
-                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">2</div>
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">3</div>
                   <div>
                     <h3 className="font-medium mb-1">Process your file</h3>
                     <p className="text-muted-foreground">Click the process button and wait for the tool to finish.</p>
@@ -359,7 +342,7 @@ const ToolPage = () => {
                 </div>
                 
                 <div className="flex gap-4">
-                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">3</div>
+                  <div className="bg-primary/10 rounded-full h-8 w-8 flex items-center justify-center shrink-0">4</div>
                   <div>
                     <h3 className="font-medium mb-1">Download results</h3>
                     <p className="text-muted-foreground">Once processing is complete, download your processed file.</p>
